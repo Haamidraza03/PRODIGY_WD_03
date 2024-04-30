@@ -99,24 +99,6 @@ function checkWin(player) {
 
 // Single player AI logic
 function singlePlayerAI() {
-    // Probability of the AI choosing a random move
-    const RANDOM_MOVE_PROBABILITY = 0.2;
-
-    // With a certain probability, choose a random move
-    if (Math.random() < RANDOM_MOVE_PROBABILITY) {
-        let availableCells = cells.filter(cell => cell.textContent === '');
-        if (availableCells.length > 0) {
-            let randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
-            randomCell.textContent = 'O';
-            checkWinOrTie();
-            if (gameActive) {
-                currentPlayer = 'X';
-            }
-            return;
-        }
-    }
-
-    // Otherwise, use the Minimax algorithm to choose the best move
     let bestScore = -Infinity;
     let move = null;
 
@@ -156,8 +138,8 @@ function singlePlayerAI() {
 // Minimax function for AI decision-making
 function minimax(cells, depth, isMaximizing) {
     const scores = {
-        'X': -5, // Increase the penalty if the user wins
-        'O': 5,  // Increase the reward if the AI wins
+        'X': -10, // Increase the penalty if the user wins
+        'O': 10,  // Increase the reward if the AI wins
         'tie': 0
     };
 
@@ -194,6 +176,7 @@ function minimax(cells, depth, isMaximizing) {
         return bestScore;
     }
 }
+
 
 
 // Create the game board
